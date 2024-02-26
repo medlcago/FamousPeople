@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from .models import Celebrity
 
@@ -16,4 +16,14 @@ class MainPageView(ListView):
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["title"] = "Знаменитые люди"
+        return context
+
+
+class ProfileView(TemplateView):
+    template_name = "people/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        context["is_profile_page"] = True
         return context
