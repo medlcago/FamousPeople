@@ -6,6 +6,10 @@ from uuslug import slugify
 
 
 # Create your models here.
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_published=Celebrity.Status.PUBLISHED)
+
 
 class Celebrity(models.Model):
     class Status(models.IntegerChoices):
@@ -22,6 +26,9 @@ class Celebrity(models.Model):
                               slugify_function=slugify)
     category: "Category" = models.ForeignKey("Category", on_delete=models.PROTECT, related_name="posts",
                                              verbose_name="Категория")
+
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
         verbose_name = "Знаменитость"
