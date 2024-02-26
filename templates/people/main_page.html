@@ -1,0 +1,22 @@
+{% extends "people/base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'people/css/main_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for p in data %}
+            <div class="person">
+                <img src="{% static 'people/images/default-image.jpg' %}"
+                     alt="Фотография">
+                <div>
+                    <h2 class="name">{{ p.title }}</h2>
+                    <p class="role">{{ p.category }}</p>
+                    <p class="description">{{ p.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
