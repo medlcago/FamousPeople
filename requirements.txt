@@ -1,0 +1,4 @@
+Django==5.0.2
+environs==10.3.0
+django_extensions
+django-uuslug
