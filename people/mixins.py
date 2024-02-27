@@ -4,6 +4,7 @@ class DataMixin:
     login_button = True
     registration_button = True
     main_page_button = False
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
