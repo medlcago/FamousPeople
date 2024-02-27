@@ -11,7 +11,7 @@ from .models import (
 @admin.register(Celebrity)
 class CelebritiesAdmin(admin.ModelAdmin):
     readonly_fields = ["slug"]
-    list_display = ("id", "title", "content", "created_at", "updated_at", "is_published", "slug", "category")
+    list_display = ("id", "title", "content", "photo", "created_at", "updated_at", "is_published", "slug", "category")
     list_display_links = ("id", "title")
     search_fields = ("title__startswith",)
     list_editable = ("is_published",)

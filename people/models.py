@@ -4,6 +4,8 @@ from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from uuslug import slugify
 
+from .utils import get_photo_upload_path
+
 
 # Create your models here.
 class PublishedManager(models.Manager):
@@ -24,6 +26,8 @@ class Celebrity(models.Model):
                                              default=Status.DRAFT, verbose_name="Статус")
     slug: str = AutoSlugField(max_length=255, unique=True, db_index=True, populate_from='title',
                               slugify_function=slugify)
+    photo: models.ImageField = models.ImageField(upload_to=get_photo_upload_path, default=None, blank=True, null=True,
+                                                 verbose_name="Фото")
     category: "Category" = models.ForeignKey("Category", on_delete=models.PROTECT, related_name="posts",
                                              verbose_name="Категория")
 
@@ -37,6 +41,14 @@ class Celebrity(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        # Deleting the previous photo when updating an object
+        if self.pk:
+            old_instance = Celebrity.objects.get(pk=self.pk)
+            if old_instance.photo and self.photo != old_instance.photo:
+                old_instance.photo.delete(save=False)
+        super().save(*args, **kwargs)
 
 
 class Category(models.Model):
