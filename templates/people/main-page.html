@@ -4,28 +4,30 @@
 
 {% block content %}
     <div class="container max-width-600 my-3 p-3 bg-white rounded shadow-sm">
-        {% for p in page_obj %}
-            <div class="media mb-3">
-                {% if p.photo %}
-                    <img src="{{ p.photo.url }}" alt="Фотография" class="mr-3 rounded-circle"
-                         width="100" height="100" style="object-fit: cover;">
-                {% else %}
-                    <img src="{% static 'people/images/default-image.jpg' %}" alt="Фотография"
-                         class="mr-3 rounded-circle"
-                         width="100" height="100" style="object-fit: cover;">
-                {% endif %}
-                <div class="media-body">
-                    <h2 class="mt-0">{{ p.title }}</h2>
-                    <p class="mb-1">
-                        <span class="text-muted font-italic">{{ p.category }}</span>
-                    </p>
-                    <p>{{ p.content }}</p>
+        <div id="ajax-content">
+            {% for p in page_obj %}
+                <div class="media mb-3">
+                    {% if p.photo %}
+                        <img src="{{ p.photo.url }}" alt="Фотография" class="mr-3 rounded-circle"
+                             width="100" height="100" style="object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'people/images/default-image.jpg' %}" alt="Фотография"
+                             class="mr-3 rounded-circle"
+                             width="100" height="100" style="object-fit: cover;">
+                    {% endif %}
+                    <div class="media-body">
+                        <h2 class="mt-0">{{ p.title }}</h2>
+                        <p class="mb-1">
+                            <span class="text-muted font-italic">{{ p.category }}</span>
+                        </p>
+                        <p>{{ p.content }}</p>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
 
-        {% if page_obj.has_other_pages %}
-            <nav aria-label="Page navigation">
+       {% if page_obj.has_other_pages %}
+            <nav id="ajax-pagination" aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     {% if page_obj.has_previous %}
                         <li class="page-item">
@@ -62,4 +64,21 @@
             </nav>
         {% endif %}
     </div>
+    
+    <script>
+        $(document).on("click", "#ajax-pagination a", function (event) {
+            event.preventDefault();
+            let url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    let content = $(data).find("#ajax-content").html();
+                    let pagination = $(data).find("#ajax-pagination").html();
+                    $("#ajax-content").html(content);
+                    $("#ajax-pagination").html(pagination);
+                }
+            });
+        });
+    </script>
 {% endblock %}
