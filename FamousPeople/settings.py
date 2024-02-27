@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "people.apps.PeopleConfig",
     "django_extensions",
-    "uuslug"
+    "uuslug",
+    "bootstrap4"
 ]
 
 MIDDLEWARE = [

@@ -1,3 +1,4 @@
+{% load bootstrap4 %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -5,24 +6,43 @@
     <title>{{ title }}</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'people/css/styles.css' %}">
+    {% bootstrap_css %}
 </head>
 <body>
 <!-- Добавление кнопок для входа и регистрации -->
 {% if not user.is_authenticated %}
-    <div class="authorization">
-        <a href="#" class="login-button">Вход</a>
-        <a href="#" class="register-button">Регистрация</a>
+    <div class="text-right mb-3">
+        {% if login_button %}
+            <div class="d-inline-block">
+                <a href="{% url 'login' %}" class="btn btn-primary">Вход</a>
+            </div>
+        {% endif %}
+        {% if main_page_button %}
+            <div class="d-inline-block">
+                <a href="{% url 'main-page' %}" class="btn btn-primary">Главная</a>
+            </div>
+        {% endif %}
+        {% if registration_button %}
+            <div class="d-inline-block">
+                <a href="#" class="btn btn-primary">Регистрация</a>
+            </div>
+        {% endif %}
     </div>
 {% else %}
     <!-- Отображение кнопки 'Мой профиль', если is_authenticated -->
     {% if not is_profile_page %}
-        <div class="profile">
-            <a href="{% url 'profile' %}" class="profile-button">Мой профиль</a>
+        <div class="text-right mb-3">
+            <a href="{% url 'profile' %}" class="btn btn-primary">Мой профиль</a>
         </div>
     {% else %}
-        <!-- Отображение кнопки 'В главное меню', если находишься в профиле -->
-        <div class="main-page">
-            <a href="{% url 'main_page' %}" class="main-page-button">В главное меню</a>
+        <!-- Отображение кнопки 'Главная', если находишься в профиле -->
+        <div class="text-right mb-3">
+            <div class="d-inline-block">
+                <a href="{% url 'main-page' %}" class="btn btn-primary">Главная</a>
+            </div>
+            <div class="d-inline-block">
+                <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
+            </div>
         </div>
     {% endif %}
 {% endif %}
