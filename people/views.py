@@ -44,7 +44,9 @@ class UserLoginView(DataMixin, LoginView):
     template_name = "people/login.html"
     redirect_authenticated_user = True
     authentication_form = LoginForm
-    success_url = reverse_lazy("profile")
+
+    def get_success_url(self):
+        return reverse_lazy("profile")
 
 
 class UserRegistrationView(DataMixin, FormView):
