@@ -1,10 +1,10 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, FormView
 
-from .forms import LoginForm
+from .forms import LoginForm, RegistrationForm
 from .mixins import DataMixin
 from .models import Celebrity
 
@@ -44,6 +44,23 @@ class UserLoginView(DataMixin, LoginView):
     template_name = "people/login.html"
     redirect_authenticated_user = True
     authentication_form = LoginForm
+    success_url = reverse_lazy("profile")
 
-    def get_success_url(self):
-        return reverse_lazy("profile")
+
+class UserRegistrationView(DataMixin, FormView):
+    login_button = True
+    registration_button = False
+    main_page_button = True
+    template_name = "people/registration.html"
+    form_class = RegistrationForm
+    success_url = reverse_lazy("profile")
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect("profile")
+        return super().get(request, *args, **kwargs)
