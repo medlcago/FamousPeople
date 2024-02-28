@@ -61,7 +61,7 @@ class UserRegistrationView(DataMixin, FormView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
         return super().form_valid(form)
 
     def get(self, request, *args, **kwargs):
