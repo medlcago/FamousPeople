@@ -38,6 +38,7 @@ def user_logout(request):
 
 
 class UserLoginView(DataMixin, LoginView):
+    title = "Авторизация"
     login_button = False
     registration_button = True
     main_page_button = True
@@ -50,6 +51,7 @@ class UserLoginView(DataMixin, LoginView):
 
 
 class UserRegistrationView(DataMixin, FormView):
+    title = "Регистрация"
     login_button = True
     registration_button = False
     main_page_button = True

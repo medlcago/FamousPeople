@@ -14,14 +14,14 @@
 <!-- Добавление кнопок для входа и регистрации -->
 {% if not user.is_authenticated %}
     <div class="text-right mb-3">
+        {% if main_page_button %}
+            <div class="d-inline-block">
+                <a href="{% url 'main-page' %}" class="btn btn-dark">Главная</a>
+            </div>
+        {% endif %}
         {% if login_button %}
             <div class="d-inline-block">
                 <a href="{% url 'login' %}" class="btn btn-primary">Вход</a>
-            </div>
-        {% endif %}
-        {% if main_page_button %}
-            <div class="d-inline-block">
-                <a href="{% url 'main-page' %}" class="btn btn-primary">Главная</a>
             </div>
         {% endif %}
         {% if registration_button %}
@@ -40,7 +40,7 @@
         <!-- Отображение кнопки 'Главная', если находишься в профиле -->
         <div class="text-right mb-3">
             <div class="d-inline-block">
-                <a href="{% url 'main-page' %}" class="btn btn-primary">Главная</a>
+                <a href="{% url 'main-page' %}" class="btn btn-dark">Главная</a>
             </div>
             <div class="d-inline-block">
                 <a href="{% url 'logout' %}" class="btn btn-danger">Выйти</a>
