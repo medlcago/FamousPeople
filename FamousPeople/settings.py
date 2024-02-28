@@ -61,6 +61,11 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "people.backends.EmailBackend"
+]
+
 ROOT_URLCONF = 'FamousPeople.urls'
 
 TEMPLATES = [
