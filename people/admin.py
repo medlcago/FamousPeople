@@ -6,8 +6,6 @@ from .models import (
 )
 
 
-# Register your models here.
-
 @admin.register(Celebrity)
 class CelebritiesAdmin(admin.ModelAdmin):
     readonly_fields = ["slug"]

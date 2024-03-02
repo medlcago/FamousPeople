@@ -3,12 +3,10 @@ from django.db import models, transaction
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .utils import get_avatar_upload_path
+from users.utils import get_avatar_upload_path
 
 User = get_user_model()
 
-
-# Create your models here.
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile", verbose_name="Профиль")

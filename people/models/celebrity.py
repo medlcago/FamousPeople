@@ -1,16 +1,13 @@
 from datetime import datetime
 
-from django.contrib.auth import get_user_model
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from uuslug import slugify
 
-from .utils import get_photo_upload_path
+from people.models import Category
+from people.utils import get_photo_upload_path
 
-User = get_user_model()
 
-
-# Create your models here.
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_published=Celebrity.Status.PUBLISHED)
@@ -52,17 +49,3 @@ class Celebrity(models.Model):
             if old_instance.photo and self.photo != old_instance.photo:
                 old_instance.photo.delete(save=False)
         super().save(*args, **kwargs)
-
-
-class Category(models.Model):
-    name: str = models.CharField(unique=True, max_length=255, db_index=True, verbose_name="Категория")
-    slug: str = AutoSlugField(max_length=255, unique=True, db_index=True, populate_from='name',
-                              slugify_function=slugify)
-
-    class Meta:
-        verbose_name = "Категория"
-        verbose_name_plural = "Категории"
-        ordering = ("pk",)
-
-    def __str__(self):
-        return self.name
