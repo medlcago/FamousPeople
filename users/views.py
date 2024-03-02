@@ -58,5 +58,5 @@ class UserRegistrationView(DataMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect("profile")
+            return redirect("users:profile")
         return super().get(request, *args, **kwargs)
