@@ -2,7 +2,7 @@ from django.contrib import admin
 from uuslug import slugify
 
 from .models import (
-    Celebrity, Category
+    Celebrity, Category, Profile
 )
 
 
@@ -36,3 +36,11 @@ class CategoryAdmin(admin.ModelAdmin):
         if change:
             obj.slug = slugify(obj.name)
         super().save_model(request, obj, form, change)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "avatar")
+    list_display_links = ("id", "user")
+    search_fields = ("user__username__startswith", )
+    save_on_top = True

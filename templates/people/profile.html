@@ -3,20 +3,41 @@
 {% load bootstrap4 %}
 
 {% block content %}
-    <div class="container max-width-600 my-3 p-3 bg-white rounded shadow-sm">
-        <div class="text-center">
-            <img src="{% static 'people/images/default-image.jpg' %}" alt="Фотография" class="rounded-circle"
-                 width="200" height="200" style="object-fit: cover;">
-        </div>
-        <div class="media-body text-center mt-3">
-            {% if user.get_full_name %}
-                <h2 class="mt-0">{{ user.get_full_name }} | {{ user.username }}</h2>
-            {% else %}
-                <h2 class="mt-0">{{ user.username }}</h2>
-            {% endif %}
-            <p class="mb-1">
-                <span class="text-muted font-italic">{{ user.email }}</span>
-            </p>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2 class="mb-0">
+                            {% if user.first_name %}
+                                {{ user.first_name }} | {{ user.username }}
+                            {% else %}
+                                {{ user.username }}
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            {% if user.profile.avatar %}
+                                <img src="{{ user.profile.avatar.url }}" alt="Аватарка" class="mr-3 rounded-circle"
+                                     width="200" height="200" style="object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'people/images/default-image.jpg' %}" alt="Аватарка"
+                                     class="mr-3 rounded-circle"
+                                     width="200" height="200" style="object-fit: cover;">
+                            {% endif %}
+                        </div>
+                        <div class="text-center mt-4">
+                            <p class="lead">
+                                <span class="text-muted font-italic">{{ user.email }}</span>
+                            </p>
+                            <p>
+                                <strong>Последний вход:</strong> {{ user.last_login }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
