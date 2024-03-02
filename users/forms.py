@@ -12,7 +12,8 @@ class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].widget.attrs.update(
-            {'class': 'form-control', 'placeholder': _('Введите имя пользователя или email адрес'), 'required': True, 'minlength': 4,
+            {'class': 'form-control', 'placeholder': _('Введите имя пользователя или email адрес'), 'required': True,
+             'minlength': 4,
              "maxlength": 32})
         self.fields["password"].widget.attrs.update(
             {'class': 'form-control', 'placeholder': _('Введите пароль'), 'required': True, 'minlength': 6})
@@ -34,8 +35,10 @@ class RegistrationForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': _('Введите пароль'), 'required': True, 'minlength': 6}),
                                 error_messages={'required': _('Введите пароль'),
                                                 'min_length': _('Пароль должен содержать минимум 6 символов')})
-    password2 = forms.CharField(required=True, min_length=6, label=_("Подтверждение пароля"), widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': _('Подтвердите пароль'), 'required': True, 'minlength': 6}),
+    password2 = forms.CharField(required=True, min_length=6, label=_("Подтверждение пароля"),
+                                widget=forms.PasswordInput(
+                                    attrs={'class': 'form-control', 'placeholder': _('Подтвердите пароль'),
+                                           'required': True, 'minlength': 6}),
                                 error_messages={'required': _('Подтвердите пароль'),
                                                 'min_length': _('Пароль должен содержать минимум 6 символов')})
 

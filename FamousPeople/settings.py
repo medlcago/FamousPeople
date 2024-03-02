@@ -44,10 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "people.apps.PeopleConfig",
+    "users.apps.UsersConfig"
+]
+
+# apps
+INSTALLED_APPS += [
     "django_extensions",
     "uuslug",
     "bootstrap4",
-    "debug_toolbar"
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -63,7 +68,7 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "people.backends.EmailBackend"
+    "users.backends.EmailBackend"
 ]
 
 ROOT_URLCONF = 'FamousPeople.urls'
