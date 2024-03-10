@@ -11,43 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<!-- Добавление кнопок для входа и регистрации -->
-{% if not user.is_authenticated %}
-    <div class="text-right mb-3">
-        {% if main_page_button %}
-            <div class="d-inline-block">
-                <a href="{% url 'people:main-page' %}" class="btn btn-dark">Главная</a>
-            </div>
-        {% endif %}
-        {% if login_button %}
-            <div class="d-inline-block">
-                <a href="{% url 'users:login' %}" class="btn btn-primary">Вход</a>
-            </div>
-        {% endif %}
-        {% if registration_button %}
-            <div class="d-inline-block">
-                <a href="{% url 'users:register' %}" class="btn btn-primary">Регистрация</a>
-            </div>
-        {% endif %}
-    </div>
-{% else %}
-    <!-- Отображение кнопки 'Мой профиль', если is_authenticated -->
-    {% if not is_profile_page %}
-        <div class="text-right mb-3">
-            <a href="{% url 'users:profile' %}" class="btn btn-primary">Мой профиль</a>
-        </div>
-    {% else %}
-        <!-- Отображение кнопки 'Главная', если находишься в профиле -->
-        <div class="text-right mb-3">
-            <div class="d-inline-block">
-                <a href="{% url 'people:main-page' %}" class="btn btn-dark">Главная</a>
-            </div>
-            <div class="d-inline-block">
-                <a href="{% url 'users:logout' %}" class="btn btn-danger">Выйти</a>
-            </div>
-        </div>
-    {% endif %}
-{% endif %}
+{% include 'header.html' %}
 {% block content %}
 {% endblock %}
 </body>

@@ -24,7 +24,7 @@ from . import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("people/", include("people.urls", namespace="people")),
-    path("users/", include("users.urls", namespace='users')),
+    path("users/", include("users.urls", namespace="users")),
     path("api/v1/", include("api.v1.urls", namespace="api")),
     path("__debug__/", include("debug_toolbar.urls"))
 ]
